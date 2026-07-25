@@ -1,26 +1,48 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fff8fb;
+  --foreground: #121c2a;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-brand: #a43073;
+  --color-brand-dark: #6d0047;
+  --color-heading: #121c2a;
+  --color-body: #544249;
+  --color-muted: #79576c;
+  --color-border: #dac0c9;
+  --color-card-border: #fbcfe8;
+  --color-page-bg: #fff8fb;
+  --color-badge-pink: #fdd0ea;
+  --color-badge-purple: #e7deff;
+  --color-icon-pink: #ffd8e7;
+  --color-icon-purple: #e7deff;
+  --color-icon-pink-alt: #ffd8ed;
+  --color-cta-subtext: #ffd8e7;
+  --color-tone-bg: #eff3ff;
+  --color-url-bar: #dee9fd;
+  --font-sans: var(--font-inter), Arial, Helvetica, sans-serif;
+  --font-heading: var(--font-plus-jakarta), Arial, Helvetica, sans-serif;
+  --font-family-heading: var(--font-plus-jakarta), Arial, Helvetica, sans-serif;
+  --color-auth-tab-bg: #f3eef1;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+.text-gradient-brand {
+  background-image: linear-gradient(127deg, #a43073 0%, #625595 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.badge-gradient {
+  background-image: linear-gradient(136deg, #fdd0ea 0%, #e7deff 100%);
 }
