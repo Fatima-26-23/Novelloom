@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Novelloom
+
+Novelloom is an AI-powered novel analysis app. Upload an EPUB or PDF manuscript and it surfaces character arcs, hidden relationships, and complex timelines from the text.
+
+## Tech Stack
+
+- **Framework:** Next.js (App Router, TypeScript)
+- **Styling:** Tailwind CSS v4
+- **Auth:** NextAuth.js with Google OAuth
+- **Fonts:** Inter, Plus Jakarta Sans (`next/font/google`)
+
+## Project Structure
+
+```
+src/
+├── app/                    # App Router pages and layouts
+│   ├── (auth)/             # Login / signup routes
+│   ├── (dashboard)/        # Dashboard, library, upload, profile, settings
+│   ├── logout/
+│   ├── layout.tsx          # Root layout
+│   └── providers.tsx       # NextAuth SessionProvider wrapper
+├── pages/api/auth/         # NextAuth route handler ([...nextauth].js)
+├── components/
+│   ├── auth/                # Login/signup forms, social auth, etc.
+│   ├── dashboard/           # Sidebar, stats, timeline, summaries, upload, settings UI
+│   └── landing/             # Marketing/landing page sections
+└── lib/
+    └── utils.ts
+```
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js 18+
+- A Google Cloud project with an OAuth 2.0 Client ID (for Google sign-in)
+
+### 1. Install dependencies
+
+This archive contains the `src/` source tree only. Scaffold a Next.js app (or drop this `src/` folder into an existing one) and install the required packages:
+
+```bash
+npm install next react react-dom next-auth
+npm install -D typescript @types/react @types/node tailwindcss
+```
+
+### 2. Configure environment variables
+
+Copy the example env file and fill in your own values:
+
+```bash
+cp .env.example .env.local
+```
+
+| Variable | Description |
+|---|---|
+| `GOOGLE_CLIENT_ID` | OAuth Client ID from the [Google Cloud Console](https://console.cloud.google.com/apis/credentials) |
+| `GOOGLE_CLIENT_SECRET` | OAuth Client Secret from the same credentials page |
+| `NEXTAUTH_SECRET` | Random secret used to sign/encrypt session tokens. Generate one with `openssl rand -base64 32` |
+| `NEXTAUTH_URL` | Base URL of the app, e.g. `http://localhost:3000` in development |
+
+When creating the Google OAuth client, add this as an authorized redirect URI:
+
+```
+http://localhost:3000/api/auth/callback/google
+```
+
+(swap in your production URL when deploying).
+
+### 3. Run the dev server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Authentication
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Sign-in is handled by NextAuth's Google provider, configured in `src/pages/api/auth/[...nextauth].js`. The client-side session is made available app-wide via `SessionProvider` in `src/app/providers.tsx`.
 
-## Learn More
+## License
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Add a license of your choice.
